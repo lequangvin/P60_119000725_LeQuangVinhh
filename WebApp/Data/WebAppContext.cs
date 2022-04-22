@@ -1,0 +1,26 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using WebApp.Models;
+
+    public class WebAppContext : DbContext
+    {
+        public WebAppContext (DbContextOptions<WebAppContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<WebApp.Models.Category> Category { get; set; }
+
+        public DbSet<WebApp.Models.News> News { get; set; }
+
+        public DbSet<WebApp.Models.Comment> Comment { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.Entity<Category>().ToTable("Category");
+            modelBuilder.Entity<News>().ToTable("News");
+            modelBuilder.Entity<Comment>().ToTable("Comment");
+        }
+    }
